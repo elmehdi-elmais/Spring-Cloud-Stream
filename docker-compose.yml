@@ -1,0 +1,18 @@
+version: '3'
+services:
+  broker:
+    build:
+      context: .
+    container_name: broker
+    ports:
+      - "9092:9092"
+    working_dir: "/opt/kafka"
+    tty: true
+    volumes:
+      - ./config/server.properties:/opt/kafka/config/server.properties
+      - ~/.m2:/root/.m2
+      - kafka-data:/opt/kafka/data
+    command: ["./bin/kafka-server-start.sh", "/opt/kafka/config/server.properties"]
+
+volumes:
+  kafka-data:
