@@ -67,3 +67,11 @@ spring.cloud.stream.bindings.pageEventSupplier-out-0.producer.poller.fixed-delay
 spring.cloud.stream.kafka.streams.binder.configuration.commit.interval.ms=1000
 spring.cloud.function.definition=pageEventConsumer;pageEventSupplier;kStreamFunction
 ```
+
+## Dashboard Analytics (temps réel)
+
+Un dashboard HTML basé sur **SmoothieChart** consomme le endpoint SSE `/analytics` exposé par `PageEventController` et affiche en temps réel le nombre d'événements par page (`P1`, `P2`), calculé via la fenêtre glissante Kafka Streams (`count-store`).
+
+Le endpoint `/analytics` renvoie un flux `Server-Sent Events` (`text/event-stream`) émettant, toutes les secondes, une map `{ "P1": <count>, "P2": <count> }`.
+
+![alt text](demo-1.png)
